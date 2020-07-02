@@ -1,0 +1,48 @@
+image: python:3.7
+options:
+  max-time: 10
+
+  scripts:
+    - script: &deploy
+        - curl -o /tmp/google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-274.0.0-linux-x86_64.tar.gz
+        - tar -xvf /tmp/google-cloud-sdk.tar.gz -C /tmp/
+        - /tmp/google-cloud-sdk/install.sh -q
+        - source /tmp/google-cloud-sdk/path.bash.inc
+
+        - echo "$GCP_SERVICE_ACCOUNT" | base64 -d > /tmp/gcloud-api-key.json
+        - gcloud auth activate-service-account --key-file /tmp/gcloud-api-key.json --quiet
+
+        - pip install pipenv
+        - pipenv lock -r > requirements.txt
+        - pip install -r requirements.txt
+        - flake8
+
+        - ./scripts/build.sh "$GCP_PROJECT"
+
+        - ./scripts/deploy.sh "$GCP_PROJECT"
+
+pipelines:
+  branches:
+    testing:
+      - step:
+          name: "Deploy on Testing"
+          deployment: testing
+          caches:
+            - pip
+          script: *deploy
+
+    dev:
+      - step:
+          name: "Deploy on Staging"
+          deployment: staging
+          caches:
+            - pip
+          script: *deploy
+
+    master:
+      - step:
+          name: "Deploy on Production"
+          deployment: production
+          caches:
+            - pip
+          script: *deploy
