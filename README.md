@@ -1,12 +1,12 @@
- #HTML to PDF Microservice
+ # HTML to PDF Microservice
 
 HTML to PDF microservice is responsible to convert a html in the form of a string to a PDF.
 
- ##Set up
+ ## Set up
 
 This part will include what you need to do to use this micro-service in your project
 
- ###Download
+ ### Download
 
 Firstly you need to download the micro-service using git
 
@@ -14,11 +14,11 @@ Firstly you need to download the micro-service using git
 git clone https://github.com/linnify/html-2-pdf.git
 ```
 
- ###Environment
+ ### Environment
 
 Set up an environment file ``.env`` with only one value ``GOOGLE_CLOUD_PROJECT`` which sets your project in which you micro-service will be trying to upload the pdf in.
 
- ##Deployment to GCP
+ ## Deployment to GCP
 
 You should be running the following commands. `GOOGLE_CLOUD_PROJECT` is the value of your project. 
 `SERVICE_NAME` is the name of your cloud run instance by default it will be `pdfs`
@@ -30,7 +30,7 @@ scripts/deploy.sh GOOGLE_CLOUD_PROJECT
 
 With this 2 commands you will be building the docker image of your service after which sed image will be deployed to GCP.
 
- ###Set up the environment
+ ### Set up the environment
 
 After you had you service deployed you should be looking to set up the environment variables inside it.
 You can visit this link to understand more about adding environment variables in GCP [here](https://cloud.google.com/run/docs/configuring/environment-variables)
