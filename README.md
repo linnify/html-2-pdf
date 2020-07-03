@@ -72,7 +72,7 @@ Returns the PDF as response. Receive only the content as json body
 Example Request:
 ```json
 {
-   "content": "your html content"
+   "content": "<body>...</body>"
 }
 ```
 
