@@ -34,7 +34,7 @@ scripts/deploy.sh GOOGLE_CLOUD_PROJECT
 
 With this 2 commands you will be building the docker image of your service after which sed image will be deployed to GCP.
 
- ### Set up the environment
+ ## Set up the environment
 
 After you had you service deployed you should be looking to set up the environment variables inside it.
 You can visit this link to understand more about adding environment variables in GCP [here](https://cloud.google.com/run/docs/configuring/environment-variables)
